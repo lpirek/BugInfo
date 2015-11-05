@@ -58,8 +58,11 @@ class SVNWrapperImpl extends AbstractRepoWrapperImpl implements RepoWrapper{
             System.out.println( "SVN client uses following parameter:" );
             System.out.println( "-repository URL: " + repositoryUrl );
             System.out.println( "-revision filter: " + stRev + ":" + endRev.toString() );
-            
+         
             svnLogClient.doLog(mSvnUrl, null, SVNRevision.UNDEFINED, SVNRevision.create(stRev), endRev, false, true, 0, new SVNLogListener(result, config) );
+            
+            result.calculateProgrammerAttributes();
+            result.calculateWeightedCommitersForClasses();
             
             return result;
         } catch (SVNException ex) {

@@ -43,13 +43,17 @@ class CSVBugSaver extends BugSaver{
             ClassInfo currentClass = bugs.getClassByName(key);
             StringBuffer line = new StringBuffer(key);
             if(mWriteBugs)
-                line.append("," + currentClass.getNumOfBugs());
+                line.append(";" + currentClass.getNumOfBugs());
             if( mWriteModifications )
-                line.append( ","+currentClass.getNumOfModifications() );
+                line.append( ";"+currentClass.getNumOfModifications() );
             if(mWriteCommiters)
-                line.append( ","+currentClass.getNumOfCommiters() );
+            {
+                line.append( ";"+currentClass.getNumOfCommiters() );
+                line.append( ";"+currentClass.getCommitersWeightedWithExp() );
+                line.append( ";"+currentClass.getCommitersWeightedWithInv() );
+            }
             if(mWriteModifiedLines)
-                line.append( ","+currentClass.getNumOfModifiedLines() );
+                line.append( ";"+currentClass.getNumOfModifiedLines() );
             output.println( line.toString() );
         }
         output.close();
@@ -63,13 +67,17 @@ class CSVBugSaver extends BugSaver{
     private void printHeader(PrintWriter output) {
         StringBuffer header = new StringBuffer("Class Name");
         if(mWriteBugs)
-            header.append(",Number of Bugs");
+            header.append(";Number of Bugs");
         if( mWriteModifications )
-            header.append( ",Number of Revisions");
+            header.append( ";Number of Revisions");
         if(mWriteCommiters)
-            header.append(",Number of Commiters");
+        {
+            header.append(";Number of Commiters");
+            header.append(";Commiters weighted with experience");
+            header.append(";Commiters weighted with involvement");
+        }
         if(mWriteModifiedLines)
-            header.append(",Number of Modified Lines");
+            header.append(";Number of Modified Lines");
         output.println( header.toString() );
     }
 

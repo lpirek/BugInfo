@@ -38,8 +38,13 @@ public class SVNLogListener extends AbstractRepoLogListener implements ISVNLogEn
         else{
             isBugFix=true;
         }
+        if (mResult.getFirstCommit() == null)
+        {
+        	mResult.setFirstCommit(logEntry.getDate());
+        }
         
-        
+        mResult.setLastCommit(logEntry.getDate());
+        mResult.addCommit(logEntry.getAuthor(), logEntry.getDate());
 
         Set<String> keys = logEntry.getChangedPaths().keySet();
         Iterator<String> itr = keys.iterator();

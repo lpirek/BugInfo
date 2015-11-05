@@ -6,6 +6,7 @@
 package pl.wroc.pwr.buginfo;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -17,8 +18,12 @@ public class ClassInfo {
     private String mName;
     private long mNumOfBugs;
     private long mNumOfModifications;
+    private double mModifiedLinesWeightedWithExp;
+    private double mModifiedLinesWeightedWithInv;
     private long mNumOfModifiedLines;
     private long mNumOfEveningRevisions;
+    private double mCommitersWeightedWithExp;
+    private double mCommitersWeightedWithInv;
     private Set<String> mCommiters;
 
     public ClassInfo(String name){
@@ -54,6 +59,16 @@ public class ClassInfo {
     public void addModifications( long newModifications ){
         mNumOfModifications += newModifications;
     }
+    
+    public double getCommitersWeightedWithExp()
+    {
+    	return mCommitersWeightedWithExp;
+    }
+    
+    public double getCommitersWeightedWithInv()
+    {
+    	return mCommitersWeightedWithInv;
+    }
 
     /**
      * @return the mNumOfCommiters
@@ -62,6 +77,13 @@ public class ClassInfo {
         return mCommiters.size();
     }
 
+    public double getModifiedLinesWeightedWithExp(){
+    	return mModifiedLinesWeightedWithExp;
+    }
+    
+    public double getModifiedLinesWeightedWithInv(){
+    	return mModifiedLinesWeightedWithInv;
+    }
     /**
      * @return the mNumOfModifiedLines
      */
@@ -85,6 +107,17 @@ public class ClassInfo {
     public void addCommiter(String commiter1) {
         mCommiters.add(commiter1);
     }
+    
+    
+    public void addCommitersWeightedWithExp(double i)
+    {
+    	mCommitersWeightedWithExp += i;
+    }
+    
+    public void addCommitersWeightedWithInv(double i)
+    {
+    	mCommitersWeightedWithInv += i;
+    }
 
     public Set<String> getCommiters(){
         return mCommiters;
@@ -92,6 +125,17 @@ public class ClassInfo {
 
     public void addNumOfModifiedLines(long i) {
         mNumOfModifiedLines += i;
+    }
+    
+    
+    public void addModifiedLinesWeightedWithExp(double i)
+    {
+    	mModifiedLinesWeightedWithExp += i;
+    }
+    
+    public void addModifiedLinesWeightedWithInv(double i)
+    {
+    	mModifiedLinesWeightedWithInv += i;
     }
 
     public void addEveningRevisions( long i){

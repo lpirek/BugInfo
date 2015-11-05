@@ -174,6 +174,7 @@ public class Properties {
         String res = mProps.getProperty("readnumberofmodifiedlines");
         return handleBoolean(res);
     }
+    
 
     public boolean readNumberOfBugs(){
         String res = mProps.getProperty("readnumberofbugs");
