@@ -5,15 +5,24 @@
 
 package pl.wroc.pwr.buginfo.repo;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.tmatesoft.svn.core.SVNDepth;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNURL;
 import org.tmatesoft.svn.core.internal.io.dav.DAVRepositoryFactory;
 import org.tmatesoft.svn.core.internal.io.fs.FSRepositoryFactory;
 import org.tmatesoft.svn.core.internal.io.svn.SVNRepositoryFactoryImpl;
 import org.tmatesoft.svn.core.internal.wc.DefaultSVNOptions;
+import org.tmatesoft.svn.core.io.SVNRepository;
 import org.tmatesoft.svn.core.wc.SVNClientManager;
+import org.tmatesoft.svn.core.wc.SVNDiffClient;
 import org.tmatesoft.svn.core.wc.SVNLogClient;
 import org.tmatesoft.svn.core.wc.SVNRevision;
 import org.tmatesoft.svn.core.wc.SVNWCUtil;
@@ -50,7 +59,9 @@ class SVNWrapperImpl extends AbstractRepoWrapperImpl implements RepoWrapper{
         setupLibrary();
 
         SVNClientManager svnClientManager =createSVNClientManager();
+        SVNClientManager svnClientManagerForDiff = createSVNClientManager();
         SVNLogClient svnLogClient = svnClientManager.getLogClient();
+
         try {
             SVNURL mSvnUrl = SVNURL.parseURIEncoded(repositoryUrl);
             final ProjectInfo result = new ProjectInfo();
@@ -58,10 +69,13 @@ class SVNWrapperImpl extends AbstractRepoWrapperImpl implements RepoWrapper{
             System.out.println( "SVN client uses following parameter:" );
             System.out.println( "-repository URL: " + repositoryUrl );
             System.out.println( "-revision filter: " + stRev + ":" + endRev.toString() );
-         
-            svnLogClient.doLog(mSvnUrl, null, SVNRevision.UNDEFINED, SVNRevision.create(stRev), endRev, false, true, 0, new SVNLogListener(result, config) );
+            
+            svnLogClient.doLog(mSvnUrl, null, SVNRevision.UNDEFINED, SVNRevision.create(stRev), endRev, false, true, 0, new SVNInitLogListener(result, config));
             
             result.calculateProgrammerAttributes();
+            
+            svnLogClient.doLog(mSvnUrl, null, SVNRevision.UNDEFINED, SVNRevision.create(stRev), endRev, false, true, 0, new SVNLogListener(result, config, svnClientManagerForDiff, mSvnUrl) );
+                      
             result.calculateWeightedCommitersForClasses();
             
             return result;

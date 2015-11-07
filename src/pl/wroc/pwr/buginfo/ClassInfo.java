@@ -122,6 +122,11 @@ public class ClassInfo {
     public Set<String> getCommiters(){
         return mCommiters;
     }
+    
+    public boolean isCommiter(String commiterName)
+    {
+    	return mCommiters.contains(commiterName);
+    }
 
     public void addNumOfModifiedLines(long i) {
         mNumOfModifiedLines += i;

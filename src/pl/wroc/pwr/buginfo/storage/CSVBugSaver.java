@@ -67,7 +67,10 @@ class CSVBugSaver extends BugSaver{
     private void printHeader(PrintWriter output) {
         StringBuffer header = new StringBuffer("Class Name");
         if(mWriteBugs)
+        {
             header.append(";Number of Bugs");
+            System.out.println("Number of bugs");
+        }
         if( mWriteModifications )
             header.append( ";Number of Revisions");
         if(mWriteCommiters)

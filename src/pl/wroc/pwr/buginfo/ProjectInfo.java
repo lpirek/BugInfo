@@ -193,4 +193,22 @@ public class ProjectInfo {
 	        	}
 	        }
      }
+     
+     public long getNumberOfAllCommits()
+     {
+    	 int i = 0;
+    	 Iterator<String> itr = mProgrammers.keySet().iterator();
+
+	        while(itr.hasNext()){ 
+	        	ProgrammerInfo p = getProgrammerByName(itr.next());
+	        		i += p.getNumberOfCommits();
+	        }
+	        
+	        return i;
+     }
+     
+     public boolean isCommiter(String className, String commiterName)
+     {
+    	 return getClassByName(className).isCommiter(commiterName);
+     }
 }

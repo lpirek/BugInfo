@@ -44,6 +44,11 @@ public class ProgrammerInfo {
 		return mInvolvement;
 	}
 	
+	public long getNumberOfCommits()
+	{
+		return mCommits.size();
+	}
+	
 	public void addCommit(Date date) {
 		try{
 			mCommits.add(formatter.parse(formatter.format(date)));
