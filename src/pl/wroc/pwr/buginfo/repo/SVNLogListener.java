@@ -70,18 +70,21 @@ public class SVNLogListener extends AbstractRepoLogListener implements ISVNLogEn
         BufferedReader br = null;
         String currentLine = "";        
         long modifiedLines = 0;
+        String classPath = "";
+        String className = "";
         
         while( itr.hasNext() ) {
-            String className = itr.next();
-            if( isPathToClass(className) ){
+            classPath = itr.next();
+            className = convertPathToClassName(classPath);
+            if( isPathToClass(classPath) ){
             	if (mPreviousRev != -1)
             	{
-	            	SVNURL filePath = mRepository.getRepositoryRoot(false).appendPath(className, true);
+	            	SVNURL filePath = mRepository.getRepositoryRoot(false).appendPath(classPath, true);
 	            	
 	            	System.out.println("FilePath: "+ filePath+ ", Revision: "+ logEntry.getRevision()+", previous revision: "+ mPreviousRev);
 	
 	       	            	
-	            	if (paths.get(className).getType() == SVNLogEntryPath.TYPE_MODIFIED)
+	            	if (paths.get(classPath).getType() == SVNLogEntryPath.TYPE_MODIFIED)
 	            	{
 		                fos = null;
 		                br = null;
@@ -129,7 +132,6 @@ public class SVNLogListener extends AbstractRepoLogListener implements ISVNLogEn
             	
            	
 
-                className = convertPathToClassName(className);
                 //TODO: if className.length throw Exception("bad prefix!");
                 if( isBugFix && mReadBugs )
                     mResult.addBugs(className, 1);
