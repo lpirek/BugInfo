@@ -75,8 +75,6 @@ class SVNWrapperImpl extends AbstractRepoWrapperImpl implements RepoWrapper{
             result.calculateProgrammerAttributes();
             
             svnLogClient.doLog(mSvnUrl, null, SVNRevision.UNDEFINED, SVNRevision.create(stRev), endRev, false, true, 0, new SVNLogListener(result, config, svnClientManagerForDiff, mSvnUrl) );
-                      
-            result.calculateWeightedCommitersForClasses();
             
             return result;
         } catch (SVNException ex) {

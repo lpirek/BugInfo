@@ -54,6 +54,8 @@ class CSVBugSaver extends BugSaver{
             }
             if(mWriteModifiedLines)
                 line.append( ";"+currentClass.getNumOfModifiedLines() );
+            	line.append( ";"+currentClass.getModifiedLinesWeightedWithExp() );
+            	line.append( ";"+currentClass.getModifiedLinesWeightedWithInv() );
             output.println( line.toString() );
         }
         output.close();
@@ -81,6 +83,8 @@ class CSVBugSaver extends BugSaver{
         }
         if(mWriteModifiedLines)
             header.append(";Number of Modified Lines");
+        	header.append(";Number of Modified Lines weighted with experience");
+        	header.append(";Number of Modified Lines weighted with involvement");
         output.println( header.toString() );
     }
 

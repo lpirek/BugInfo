@@ -168,6 +168,8 @@ public class ProjectInfo {
 	    				int numberOfWorkDays = currentP.getNumberOfWorkDays(mFirstCommit, mLastCommit);
 	    				currentP.setExperience((double)(releaseLength - dayOfFirstCommit)/releaseLength);
 	    				currentP.setInvolvement((double) numberOfWorkDays/releaseLength);
+	    				
+	    				System.out.println("Programmer: "+ currentP.getName()+", Experience: " + currentP.getExperience()+", involvement: "+ currentP.getInvolvement());
     	            }
     	            catch(Exception e)
     	            {
@@ -178,21 +180,6 @@ public class ProjectInfo {
     	 }
      }
      
-     public void calculateWeightedCommitersForClasses()
-     {
-		 Iterator<String> itr = mClasses.keySet().iterator();
-
-	        while(itr.hasNext()){
-	        	ClassInfo currentC = mClasses.get(itr.next());
-	        	Iterator<String> itr2 = currentC.getCommiters().iterator();
-	        	
-	        	while(itr2.hasNext()){
-	        		ProgrammerInfo currentP = mProgrammers.get(itr2.next()); 
-	        		currentC.addCommitersWeightedWithExp(1 - currentP.getExperience());
-	        		currentC.addCommitersWeightedWithInv(1 - currentP.getInvolvement());
-	        	}
-	        }
-     }
      
      public long getNumberOfAllCommits()
      {

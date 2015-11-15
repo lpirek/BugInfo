@@ -76,6 +76,8 @@ public class SVNLogListener extends AbstractRepoLogListener implements ISVNLogEn
         while( itr.hasNext() ) {
             classPath = itr.next();
             className = convertPathToClassName(classPath);
+            
+            System.out.println("Author: "+ logEntry.getAuthor());
             if( isPathToClass(classPath) ){
             	if (mPreviousRev != -1)
             	{
@@ -148,7 +150,7 @@ public class SVNLogListener extends AbstractRepoLogListener implements ISVNLogEn
     private void handleCommiter(SVNLogEntry logEntry, String className) {
         if( mReadCommiters ){
             String commiter=logEntry.getAuthor();
-            if (!mResult.isCommiter(className, commiter))
+            if (commiter != null & !mResult.isCommiter(className, commiter))
             {
 	            mResult.addCommiter(className, commiter);
 	            mResult.addCommiterWeightedWithExp(className, (1 - mResult.getProgrammerByName(commiter).getExperience()));
