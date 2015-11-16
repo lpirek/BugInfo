@@ -77,7 +77,6 @@ public class SVNLogListener extends AbstractRepoLogListener implements ISVNLogEn
             classPath = itr.next();
             className = convertPathToClassName(classPath);
             
-            System.out.println("Author: "+ logEntry.getAuthor());
             if( isPathToClass(classPath) ){
             	if (mPreviousRev != -1)
             	{
@@ -85,51 +84,58 @@ public class SVNLogListener extends AbstractRepoLogListener implements ISVNLogEn
 	            	
 	            	System.out.println("FilePath: "+ filePath+ ", Revision: "+ logEntry.getRevision()+", previous revision: "+ mPreviousRev);
 	
-	       	            	
-	            	if (paths.get(classPath).getType() == SVNLogEntryPath.TYPE_MODIFIED)
-	            	{
-		                fos = null;
-		                br = null;
-		                currentLine = "";	                
-		                modifiedLines = 0;
+		            	if (paths.get(classPath).getType() == SVNLogEntryPath.TYPE_MODIFIED)
+		            	{
+			       	        if (mRepository.checkPath(classPath, logEntry.getRevision()) == SVNNodeKind.FILE && mRepository.checkPath(classPath, mPreviousRev) == SVNNodeKind.FILE)
+			       	        {
+				                fos = null;
+				                br = null;
+				                currentLine = "";	                
+				                modifiedLines = 0;
+				                
+				                try
+				                {
+				                	fos = new FileOutputStream(new File(outputName));
+				    	         	mDiffClient.doDiff(filePath,
+				    	         			SVNRevision.create(logEntry.getRevision()), filePath,
+				    	        			SVNRevision.create(mPreviousRev), SVNDepth.FILES, true, fos);
+				    	         	fos.flush();
+				    	         	fos.close();
+				    	         	
+				    	         	br = new BufferedReader(new FileReader(outputName));
+				    	         	while ((currentLine = br.readLine()) != null)
+				    	         	{
+				    	         		if (currentLine.length() > 0 && (currentLine.charAt(0) == '+' || currentLine.charAt(0) == '-'))
+				    	         		{
+				    	         			modifiedLines++;
+				    	         		}
+				    	         	}
+				    	         	
+				    	         	if (modifiedLines >= 2)
+				    	         		modifiedLines -=2;
+				    	         	
+				    	         	br.close();
+				    	         	
+				    	         	
+				    	         	System.out.println("Modified lines: " + modifiedLines);
+			    	         	
+			                }
+			                catch(IOException e)
+			                {
+			                	System.out.println(e.getMessage());
+			                }
+			                
+			                mResult.addModifiedLines(className, modifiedLines);
+			                mResult.addModifiedLinesWeightedWithExp(className, (1 - mResult.getProgrammerByName(logEntry.getAuthor()).getExperience())*modifiedLines);
+			                mResult.addModifiedLinesWeightedWithInv(className, (1 - mResult.getProgrammerByName(logEntry.getAuthor()).getInvolvement())*modifiedLines);
 		                
-		                try
-		                {
-		                	fos = new FileOutputStream(new File(outputName));
-		    	         	mDiffClient.doDiff(filePath,
-		    	         			SVNRevision.create(logEntry.getRevision()), filePath,
-		    	        			SVNRevision.create(mPreviousRev), SVNDepth.FILES, true, fos);
-		    	         	fos.flush();
-		    	         	fos.close();
-		    	         	
-		    	         	br = new BufferedReader(new FileReader(outputName));
-		    	         	while ((currentLine = br.readLine()) != null)
-		    	         	{
-		    	         		if (currentLine.length() > 0 && (currentLine.charAt(0) == '+' || currentLine.charAt(0) == '-'))
-		    	         		{
-		    	         			modifiedLines++;
-		    	         		}
-		    	         	}
-		    	         	
-		    	         	if (modifiedLines >= 2)
-		    	         		modifiedLines -=2;
-		    	         	
-		    	         	br.close();
-		    	         	
-		    	         	
-		    	         	System.out.println("Modified lines: " + modifiedLines);
-		    	         	
-		                }
-		                catch(IOException e)
-		                {
-		                	System.out.println(e.getMessage());
-		                }
-		                
-		                mResult.addModifiedLines(className, modifiedLines);
-		                mResult.addModifiedLinesWeightedWithExp(className, (1 - mResult.getProgrammerByName(logEntry.getAuthor()).getExperience())*modifiedLines);
-		                mResult.addModifiedLinesWeightedWithInv(className, (1 - mResult.getProgrammerByName(logEntry.getAuthor()).getInvolvement())*modifiedLines);
-	                
-	            	}
+		            	}
+			       	        
+			       	    else
+			       	    {
+			       	        System.err.println("File modified but not in Revisions!");
+			       	    }
+	       	        }
             	}
             	
            	
