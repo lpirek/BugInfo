@@ -54,7 +54,7 @@ public class SVNLogListener extends AbstractRepoLogListener implements ISVNLogEn
     
     public void handleLogEntry(SVNLogEntry logEntry) throws SVNException {
         boolean isBugFix=false;
-        if( !isBugFix( logEntry.getMessage() )  ){
+        if( !isBugFix( logEntry.getMessage().replace("\n", " ") )  ){
             if( !mReadModifications )
                 return;
         }
@@ -82,7 +82,7 @@ public class SVNLogListener extends AbstractRepoLogListener implements ISVNLogEn
             	{
 	            	SVNURL filePath = mRepository.getRepositoryRoot(false).appendPath(classPath, true);
 	            	
-	            	System.out.println("FilePath: "+ filePath+ ", Revision: "+ logEntry.getRevision()+", previous revision: "+ mPreviousRev);
+//	            	System.out.println("FilePath: "+ filePath+ ", Revision: "+ logEntry.getRevision()+", previous revision: "+ mPreviousRev);
 	
 		            	if (paths.get(classPath).getType() == SVNLogEntryPath.TYPE_MODIFIED)
 		            	{
@@ -115,9 +115,7 @@ public class SVNLogListener extends AbstractRepoLogListener implements ISVNLogEn
 				    	         		modifiedLines -=2;
 				    	         	
 				    	         	br.close();
-				    	         	
-				    	         	
-				    	         	System.out.println("Modified lines: " + modifiedLines);
+
 			    	         	
 			                }
 			                catch(IOException e)
