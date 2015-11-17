@@ -53,9 +53,31 @@ class CSVBugSaver extends BugSaver{
                 line.append( ";"+currentClass.getCommitersWeightedWithInv() );
             }
             if(mWriteModifiedLines)
+            {
                 line.append( ";"+currentClass.getNumOfModifiedLines() );
             	line.append( ";"+currentClass.getModifiedLinesWeightedWithExp() );
             	line.append( ";"+currentClass.getModifiedLinesWeightedWithInv() );
+            }
+            
+            line.append(";"+currentClass.getWMC());
+            line.append(";"+currentClass.getDIT());
+            line.append(";"+currentClass.getNOC());
+            line.append(";"+currentClass.getCBO());
+            line.append(";"+currentClass.getRFC());
+            line.append(";"+currentClass.getLCOM());
+            line.append(";"+currentClass.getCA());
+            line.append(";"+currentClass.getCE());
+            line.append(";"+currentClass.getNPM());
+            line.append(";"+currentClass.getLCOM3());
+            line.append(";"+currentClass.getLOC());
+            line.append(";"+currentClass.getDAM());
+            line.append(";"+currentClass.getMOA());
+            line.append(";"+currentClass.getMFA());
+            line.append(";"+currentClass.getCAM());
+            line.append(";"+currentClass.getIC());
+            line.append(";"+currentClass.getCBM());
+            line.append(";"+currentClass.getAMC());
+            	
             output.println( line.toString() );
         }
         output.close();
@@ -82,9 +104,31 @@ class CSVBugSaver extends BugSaver{
             header.append(";Commiters weighted with involvement");
         }
         if(mWriteModifiedLines)
+        {
             header.append(";Number of Modified Lines");
         	header.append(";Number of Modified Lines weighted with experience");
         	header.append(";Number of Modified Lines weighted with involvement");
+        }
+        
+        header.append(";WMC");
+        header.append(";DIT");
+        header.append(";NOC");
+        header.append(";CBO");
+        header.append(";RFC");
+        header.append(";LCOM");
+        header.append(";CA");
+        header.append(";CE");
+        header.append(";NPM");
+        header.append(";LCOM3");
+        header.append(";LOC");
+        header.append(";DAM");
+        header.append(";MOA");
+        header.append(";MFA");
+        header.append(";CAM");
+        header.append(";IC");
+        header.append(";CBM");
+        header.append(";AMC");
+        
         output.println( header.toString() );
     }
 

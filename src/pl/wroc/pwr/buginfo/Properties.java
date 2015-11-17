@@ -159,6 +159,10 @@ public class Properties {
     public String getCsvfilename(){
         return getProperty("csvfilename" );
     }
+    
+    public String getXMLfilename(){
+        return getProperty("xmlfilename" );
+    }
 
     public boolean readNumberOfModifications(){
         String res = mProps.getProperty("readnumberofmodifications");

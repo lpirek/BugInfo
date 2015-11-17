@@ -21,6 +21,7 @@ public class BugInfo {
     protected Properties properties;
     protected RepoWrapper repo;
     protected BugSaver saver;
+    protected XMLParser parser;
 
     public BugInfo() throws IOException, ClassNotFoundException, SQLException {
         properties = new Properties();
@@ -44,6 +45,8 @@ public class BugInfo {
     void collectAndSaveBugs() throws ClassNotFoundException, SQLException, IOException {
         System.out.println("Retriving data from the repository...");
         ProjectInfo bugs = collectBugs();
+        
+        collectProductMetrics(bugs);
 
         if (bugs.isEmpty()) {
             System.out.println("There is no information about the bugs." + 
@@ -60,6 +63,10 @@ public class BugInfo {
 
     protected ProjectInfo collectBugs() {
         return repo.getBugs( properties);
+    }
+    
+    protected void collectProductMetrics(ProjectInfo project){
+    	parser.collectMetrics(project);
     }
     
 
@@ -85,6 +92,7 @@ public class BugInfo {
     private void initFields() throws SQLException, IOException, ClassNotFoundException {
         repo = RepoWrapperFactory.createWrapper(properties);
         saver = BugSaverFactory.createBugSaver(properties);
+        parser = new XMLParser(properties.getXMLfilename());
     }
 
     
