@@ -48,24 +48,78 @@ public class XMLParser {
 					
 					if (classInfo != null)
 					{
-						classInfo.setWMC(Integer.parseInt(el.getElementsByTagName("wmc").item(0).getTextContent()));
-						classInfo.setDIT(Integer.parseInt(el.getElementsByTagName("dit").item(0).getTextContent()));
-						classInfo.setNOC(Integer.parseInt(el.getElementsByTagName("noc").item(0).getTextContent()));
-						classInfo.setCBO(Integer.parseInt(el.getElementsByTagName("cbo").item(0).getTextContent()));
-						classInfo.setRFC(Integer.parseInt(el.getElementsByTagName("rfc").item(0).getTextContent()));
-						classInfo.setLCOM(Integer.parseInt(el.getElementsByTagName("lcom").item(0).getTextContent()));
-						classInfo.setCA(Integer.parseInt(el.getElementsByTagName("ca").item(0).getTextContent()));
-						classInfo.setCE(Integer.parseInt(el.getElementsByTagName("ce").item(0).getTextContent()));
-						classInfo.setNPM(Integer.parseInt(el.getElementsByTagName("npm").item(0).getTextContent()));
-						classInfo.setLCOM3(Double.parseDouble(el.getElementsByTagName("lcom3").item(0).getTextContent()));
-						classInfo.setLOC(Integer.parseInt(el.getElementsByTagName("loc").item(0).getTextContent()));
-						classInfo.setDAM(Double.parseDouble(el.getElementsByTagName("dam").item(0).getTextContent()));
-						classInfo.setMOA(Integer.parseInt(el.getElementsByTagName("moa").item(0).getTextContent()));
-						classInfo.setMFA(Double.parseDouble(el.getElementsByTagName("mfa").item(0).getTextContent()));
-						classInfo.setCAM(Double.parseDouble(el.getElementsByTagName("cam").item(0).getTextContent()));
-						classInfo.setIC(Integer.parseInt(el.getElementsByTagName("ic").item(0).getTextContent()));
-						classInfo.setCBM(Integer.parseInt(el.getElementsByTagName("cbm").item(0).getTextContent()));
-						classInfo.setAMC(Double.parseDouble(el.getElementsByTagName("amc").item(0).getTextContent()));
+						if (el.getElementsByTagName("wmc").getLength() > 0)
+						{
+							classInfo.setWMC(Integer.parseInt(el.getElementsByTagName("wmc").item(0).getTextContent()));
+						}
+						if (el.getElementsByTagName("dit").getLength() > 0)
+						{
+							classInfo.setDIT(Integer.parseInt(el.getElementsByTagName("dit").item(0).getTextContent()));
+						}
+						if (el.getElementsByTagName("noc").getLength() > 0)
+						{
+							classInfo.setNOC(Integer.parseInt(el.getElementsByTagName("noc").item(0).getTextContent()));
+						}
+						if (el.getElementsByTagName("cbo").getLength() > 0)
+						{
+							classInfo.setCBO(Integer.parseInt(el.getElementsByTagName("cbo").item(0).getTextContent()));
+						}
+						if (el.getElementsByTagName("rfc").getLength() > 0)
+						{
+							classInfo.setRFC(Integer.parseInt(el.getElementsByTagName("rfc").item(0).getTextContent()));
+						}
+						if (el.getElementsByTagName("lcom").getLength() > 0)
+						{
+							classInfo.setLCOM(Integer.parseInt(el.getElementsByTagName("lcom").item(0).getTextContent()));
+						}
+						if (el.getElementsByTagName("ca").getLength() > 0)
+						{
+							classInfo.setCA(Integer.parseInt(el.getElementsByTagName("ca").item(0).getTextContent()));
+						}
+						if (el.getElementsByTagName("ce").getLength() > 0)
+						{
+							classInfo.setCE(Integer.parseInt(el.getElementsByTagName("ce").item(0).getTextContent()));
+						}
+						if (el.getElementsByTagName("npm").getLength() > 0)
+						{
+							classInfo.setNPM(Integer.parseInt(el.getElementsByTagName("npm").item(0).getTextContent()));
+						}
+						if (el.getElementsByTagName("lcom3").getLength() > 0)
+						{
+							classInfo.setLCOM3(Double.parseDouble(el.getElementsByTagName("lcom3").item(0).getTextContent()));
+						}
+						if (el.getElementsByTagName("loc").getLength() > 0)
+						{
+							classInfo.setLOC(Integer.parseInt(el.getElementsByTagName("loc").item(0).getTextContent()));
+						}
+						if (el.getElementsByTagName("dam").getLength() > 0)
+						{
+							classInfo.setDAM(Double.parseDouble(el.getElementsByTagName("dam").item(0).getTextContent()));
+						}
+						if (el.getElementsByTagName("moa").getLength() > 0)
+						{
+							classInfo.setMOA(Integer.parseInt(el.getElementsByTagName("moa").item(0).getTextContent()));
+						}
+						if (el.getElementsByTagName("mfa").getLength() > 0)
+						{
+							classInfo.setMFA(Double.parseDouble(el.getElementsByTagName("mfa").item(0).getTextContent()));
+						}
+						if (el.getElementsByTagName("cam").getLength() > 0)
+						{
+							classInfo.setCAM(Double.parseDouble(el.getElementsByTagName("cam").item(0).getTextContent()));
+						}
+						if (el.getElementsByTagName("ic").getLength() > 0)
+						{
+							classInfo.setIC(Integer.parseInt(el.getElementsByTagName("ic").item(0).getTextContent()));
+						}
+						if (el.getElementsByTagName("cbm").getLength() > 0)
+						{
+							classInfo.setCBM(Integer.parseInt(el.getElementsByTagName("cbm").item(0).getTextContent()));
+						}
+						if (el.getElementsByTagName("amc").getLength() > 0)
+						{
+							classInfo.setAMC(Double.parseDouble(el.getElementsByTagName("amc").item(0).getTextContent()));
+						}
 					}
 					
 				}

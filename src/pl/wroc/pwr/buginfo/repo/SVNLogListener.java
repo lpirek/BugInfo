@@ -78,7 +78,7 @@ public class SVNLogListener extends AbstractRepoLogListener implements ISVNLogEn
             className = convertPathToClassName(classPath);
             
             if( isPathToClass(classPath) ){
-/*            	if (mPreviousRev != -1)
+            	if (mPreviousRev != -1)
             	{
 	            	SVNURL filePath = mRepository.getRepositoryRoot(false).appendPath(classPath, true);
 	            	
@@ -134,7 +134,7 @@ public class SVNLogListener extends AbstractRepoLogListener implements ISVNLogEn
 			       	        System.err.println("File modified but not in Revisions!");
 			       	    }
 	       	        }
-            	}*/
+            	}
             	
            	
 

@@ -169,7 +169,7 @@ public class ProjectInfo {
 	    				currentP.setExperience((double)(releaseLength - dayOfFirstCommit)/releaseLength);
 	    				currentP.setInvolvement((double) numberOfWorkDays/releaseLength);
 	    				
-	    				System.out.println("Programmer: "+ currentP.getName()+", Experience: " + currentP.getExperience()+", involvement: "+ currentP.getInvolvement());
+	//    				System.out.println("Programmer: "+ currentP.getName()+", Experience: " + currentP.getExperience()+", involvement: "+ currentP.getInvolvement());
     	            }
     	            catch(Exception e)
     	            {
